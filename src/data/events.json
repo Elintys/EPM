@@ -1,0 +1,46 @@
+[
+  {
+    "id": "evt_001",
+    "title": "Tech & Innovation Summit 2025",
+    "description": "Conférence annuelle sur les nouvelles technologies et les startups émergentes.",
+    "date": "2025-11-14T09:00:00Z",
+    "location": "Palais des Congrès, Montréal",
+    "organizerId": "usr_001",
+    "category": "Technologie",
+    "image": "https://example.com/images/techsummit.jpg",
+    "status": "upcoming"
+  },
+  {
+    "id": "evt_002",
+    "title": "Gala des Entrepreneurs Francophones",
+    "description": "Une soirée de réseautage pour les jeunes entrepreneurs francophones.",
+    "date": "2025-12-02T19:00:00Z",
+    "location": "Hôtel Reine Élizabeth, Montréal",
+    "organizerId": "usr_002",
+    "category": "Business",
+    "image": "https://example.com/images/gala.jpg",
+    "status": "upcoming"
+  },
+  {
+    "id": "evt_003",
+    "title": "Festival ÉcoCulture",
+    "description": "Événement sur la durabilité, l’art écologique et les innovations vertes.",
+    "date": "2025-10-28T10:00:00Z",
+    "location": "Parc Jean-Drapeau, Montréal",
+    "organizerId": "usr_003",
+    "category": "Environnement",
+    "image": "https://example.com/images/ecoculture.jpg",
+    "status": "upcoming"
+  },
+  {
+    "id": "evt_004",
+    "title": "Afterwork Power Platform Meetup",
+    "description": "Rencontre entre développeurs Power Platform pour partager des projets.",
+    "date": "2025-11-05T17:30:00Z",
+    "location": "CGI Innovation Center, Laval",
+    "organizerId": "usr_004",
+    "category": "Développement",
+    "image": "https://example.com/images/afterwork.jpg",
+    "status": "upcoming"
+  }
+]
