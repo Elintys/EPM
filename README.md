@@ -1,4 +1,207 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+
+Voici un **README.md complet et professionnel** pour ton application mobile **GuestPass (EPM)** développée en **React Native avec TypeScript**, connectée à ton **API Node.js / MongoDB** :
+
+---
+
+```markdown
+# 🎟️ GuestPass (EPM) — Application Mobile Événementielle
+
+GuestPass (EPM) est une application mobile multiplateforme (iOS & Android) développée en **React Native + TypeScript**, permettant aux utilisateurs de **découvrir, gérer et participer à des événements**.  
+Elle est connectée à une **API Node.js + Express + MongoDB (Elyntis Platform Management)**.
+
+---
+
+## 📱 Fonctionnalités principales
+
+### 👤 Utilisateurs
+- Création de compte / connexion (email, Google, Apple ID)
+- Mise à jour du profil utilisateur (photo, bio, préférences)
+- Historique de participation aux événements
+- Gestion des billets achetés (QR code inclus)
+
+### 🎉 Événements
+- Liste des événements disponibles (filtrage par catégorie, date, localisation)
+- Détails complets (description, organisateur, lieu, images)
+- Ajout aux favoris
+- Achat ou réservation de billet
+
+### 🎟️ Billets & Accès
+- Génération automatique de QR code pour chaque billet
+- Validation d’accès via scan à l’entrée (staff side)
+- Historique de participation
+
+### 🏢 Organisations
+- Page publique de l’organisation
+- Liste des événements organisés
+- Possibilité de suivre une organisation
+
+---
+
+## 🧠 Architecture technique
+
+### Stack principale
+| Catégorie | Technologie |
+|------------|--------------|
+| Framework Mobile | **React Native (Expo ou CLI)** |
+| Langage | **TypeScript** |
+| Gestion d’état | **Redux Toolkit / Zustand** |
+| Navigation | **React Navigation v7** |
+| Requêtes API | **Axios / React Query** |
+| Authentification | **JWT / OAuth2 (via API Elyntis)** |
+| Base de données locale | **AsyncStorage / MMKV** |
+| UI Components | **React Native Paper / NativeWind (Tailwind)** |
+
+---
+
+## 🧩 Structure du projet
+
+```
+
+guestpass-app/
+│
+├── src/
+│   ├── api/              # Gestion des appels à l’API Elyntis
+│   ├── assets/           # Images, icônes, fonts
+│   ├── components/       # Composants réutilisables
+│   ├── hooks/            # Custom hooks
+│   ├── navigation/       # Stack, Tab & Auth Navigators
+│   ├── screens/          # Pages principales (Home, Event, Profile, etc.)
+│   ├── store/            # Redux/Zustand store
+│   ├── types/            # Types et interfaces TypeScript
+│   └── utils/            # Fonctions utilitaires
+│
+├── App.tsx               # Point d’entrée principal
+├── package.json
+├── tsconfig.json
+└── README.md
+
+````
+
+---
+
+## ⚙️ Installation et exécution
+
+### 1️⃣ Cloner le projet
+```bash
+git clone https://github.com/username/guestpass-app.git
+cd guestpass-app
+````
+
+### 2️⃣ Installer les dépendances
+
+```bash
+npm install
+# ou
+yarn install
+```
+
+### 3️⃣ Configurer les variables d’environnement
+
+Crée un fichier `.env` à la racine du projet :
+
+```
+API_BASE_URL=https://api.elyntis.com
+GOOGLE_CLIENT_ID=xxxx.apps.googleusercontent.com
+APPLE_CLIENT_ID=com.guestpass.ios
+```
+
+### 4️⃣ Lancer l’application
+
+#### ▶️ Mode développement
+
+```bash
+npx expo start
+# ou
+npx react-native run-android
+# ou
+npx react-native run-ios
+```
+
+---
+
+## 🔐 Authentification
+
+L’application communique avec l’API Elyntis via un système JWT :
+
+* `POST /auth/register`
+* `POST /auth/login`
+* `GET /auth/me` pour récupérer le profil utilisateur
+* Les tokens sont stockés localement via **SecureStore (Expo)** ou **AsyncStorage (bare RN)**.
+
+---
+
+## 🧾 Exemple d’intégration API
+
+```ts
+import axios from 'axios';
+import { API_BASE_URL } from '@env';
+
+export const api = axios.create({
+  baseURL: API_BASE_URL,
+});
+
+export const getEvents = async () => {
+  const res = await api.get('/events');
+  return res.data;
+};
+```
+
+---
+
+## 🎨 Design & UX
+
+* Palette : tons **violets et dorés** (identité Elyntis)
+* Typographie : **Poppins / Inter**
+* Expérience fluide et minimaliste
+* Interface bilingue : 🇫🇷 Français / 🇬🇧 Anglais
+
+---
+
+## 🚀 Build & Déploiement
+
+### Android
+
+```bash
+npx expo build:android
+```
+
+### iOS
+
+```bash
+npx expo build:ios
+```
+
+Les builds peuvent ensuite être téléchargés et publiés sur **Google Play** et **App Store**.
+
+---
+
+## 🧑‍💻 Équipe
+
+* **Product Owner / Designer** : KLAN
+* **Développeur Mobile** : Digital Studios Team
+* **API Backend** : Elyntis API (Node.js + MongoDB)
+
+---
+
+## 📄 Licence
+
+Ce projet est distribué sous la licence **MIT**.
+© 2025 Digital Studios & Elyntis. Tous droits réservés.
+
+---
+
+## 🌐 Liens utiles
+
+* [🌍 Site Web Elyntis](https://www.elintys.com)
+* [💻 API Node.js Repository](https://github.com/username/elyntis-api)
+* [📱 Application Mobile GuestPass (EPM)](https://github.com/username/guestpass-app)
+
+```
+
+---
+
+Souhaites-tu que je t’ajoute la section **"Screenshots & Aperçu de l’app"** (avec placeholders pour images et maquettes Figma) à la fin du README pour un rendu plus professionnel ?
+```
 
 # Getting Started
 
@@ -58,41 +261,4 @@ npm run ios
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 # EPM
