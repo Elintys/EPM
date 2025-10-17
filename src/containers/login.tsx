@@ -23,7 +23,7 @@ const Login = () => {
   // useEffect(() => {
   //   if (user) {
   //     navigation.navigate('Main');
-  //   }
+  //   }  
   // }, [user, navigation]);
 
   return (
