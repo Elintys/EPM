@@ -3,6 +3,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import userReducer from "./slices/user/userSlice";
 import eventReducer from "./slices/event/eventSlice";
+import categoryReducer from "./slices/category/categorySlice";
 
 // Configuration de la persistance
 const persistConfig = {
@@ -15,6 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   events: eventReducer,
+  categories: categoryReducer,
 });
 
 
