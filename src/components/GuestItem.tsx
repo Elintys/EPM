@@ -15,7 +15,7 @@ interface Guest {
 
 const GuestItem = ({ guest }: { guest: Guest }) => {
   return (
-    <View style={theme.listItem}>
+    <View style={[theme.listItem, styles.container]}>
       <Text>{guest.name}</Text>
       <View
         style={[
@@ -29,6 +29,14 @@ const GuestItem = ({ guest }: { guest: Guest }) => {
 
 const styles = StyleSheet.create({
 
+  container:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: Colors.neutral300,
+    height: 50,
+  },
   btnChecking: {
     width: 12,
     height: 12,

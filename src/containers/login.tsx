@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
   Text,
   TextInput,
@@ -8,34 +9,55 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from 'react-redux';
 import theme, { Colors } from '../constants/styles/theme';
-import { useAuth } from '../context/AuthContext';
-// import { useAuth } from '../hooks/useAuth';
+import { AppDispatch, RootState } from '../store/store';
+import { loginUser } from '../store/slices/userSlice';
 
 const Login = () => {
   const navigation = useNavigation();
-  const { setUser } = useAuth();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleLogin = () => {
-    setUser({ name: 'KLAN', email: 'klan@elyntis.app' });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // On récupère les infos utilisateur depuis Redux
+  const { user, loading, error } = useSelector((state: RootState) => state.user);
+
+  const handleLogin = async () => {
+    if (!email || !password) return;
+    dispatch(loginUser({ email, password }));
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigation.navigate('Main');
-  //   }
-  // }, [user, navigation]);
+  /**
+   * Redirige automatiquement vers "Main" une fois la connexion réussie
+   */
+  useEffect(() => {
+    if (user && !loading && !error) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Main' as never }],
+      });
+    }
+  }, [user, loading, error, navigation]);
 
   return (
     <SafeAreaView style={theme.container}>
       <View style={theme.spaced}>
         <Text style={theme.headerTitle}>Login</Text>
-        {/* <View style={{ height: 10 }} /> */}
-        <Text style={[styles.subtitle, { alignSelf: 'center' }]}>Connectez-vous à votre compte</Text>
+        <Text style={[styles.subtitle, { alignSelf: 'center' }]}>
+          Connectez-vous à votre compte
+        </Text>
 
         <View style={styles.formContainer}>
           <Text style={theme.inputLabel}>Email</Text>
-          <TextInput placeholder="Email" style={theme.input} />
+          <TextInput
+            placeholder="Email"
+            style={theme.input}
+            onChangeText={setEmail}
+            value={email}
+            autoCapitalize="none"
+          />
 
           <View style={{ height: 20 }} />
 
@@ -44,50 +66,41 @@ const Login = () => {
             placeholder="Mot de passe"
             style={theme.input}
             secureTextEntry
+            onChangeText={setPassword}
+            value={password}
           />
         </View>
+
         <View>
           <View style={styles.linkContainer}>
-            <Text style={styles.linkText}>Pas encore de compte?</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Register' as never)}
-            >
+            <Text style={styles.linkText}>Pas encore de compte ?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Register' as never)}>
               <Text style={styles.linkAction}>Enregistrez-vous</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.linkContainer}>
-            <Text style={styles.linkText}>Mot de passe oublié?</Text>
-            <TouchableOpacity>
-              <Text style={styles.linkAction}>Réinitialiser le </Text>
+            <Text style={styles.linkText}>Mot de passe oublié ?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('RecoverPassword' as never)}>
+              <Text style={styles.linkAction}>Réinitialiser</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        <TouchableOpacity
-          style={styles.submitBtn}
-          onPress={() => handleLogin()}
-        >
-          <Text style={styles.btnText}>Se connecter</Text>
-        </TouchableOpacity>
+        {error && <Text style={styles.error}>{error}</Text>}
+
+        {loading ? (
+          <ActivityIndicator color={Colors.primary} />
+        ) : (
+          <TouchableOpacity style={styles.submitBtn} onPress={handleLogin}>
+            <Text style={styles.btnText}>Se connecter</Text>
+          </TouchableOpacity>
+        )}
       </View>
-      {/* </View> */}
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   padding: theme.container.padding,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  // title: {
-  //   fontSize: 24,
-  //   fontWeight: 'bold',
-  //   marginBottom: 25,
-  // },
   subtitle: {
     fontSize: 16,
     color: 'gray',
@@ -143,6 +156,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });
 

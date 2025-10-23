@@ -41,6 +41,7 @@ export const Colors = {
   neutral500: '#6C757D',
   neutral600: '#495057',
   neutral700: '#343A40',
+  primaryLight: '#bbaaf2b8',
   shadow: '#000000',
   transparent: 'transparent',
 };
@@ -109,7 +110,19 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'space-evenly',
   },
+  // Padding horizontal commun
+  horizontalPadding: {
+    paddingHorizontal: Spacing.md,
+  },
+  // Margin horizontal commun
+  horizontalMargin: {
+    marginHorizontal: Spacing.md,
+  },
 
+  // Spacer entre éléments
+  spacerSm: { height: Spacing.sm },
+  spacerMd: { height: Spacing.md },
+  spacerLg: { height: Spacing.xxl },
   // Header simple
   header: {
     width: '100%',
@@ -119,12 +132,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Colors.neutral100,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.neutral300,
+    // borderBottomWidth: 1,
+    // borderBottomColor: Colors.neutral300,
   },
   headerTitle: {
     fontFamily: Fonts.medium,
-    fontSize: FontSizes.xl,
+    fontSize: FontSizes.lg,
     color: Colors.neutral700,
   },
 
@@ -189,9 +202,10 @@ export default StyleSheet.create({
     width: '100%',
   },
   listItem: {
-    backgroundColor: Colors.neutral100,
-    padding: Spacing.md,
+    backgroundColor: Colors.neutral200,
+    padding: Spacing.sm,
     borderRadius: 10,
+    width: Spacing.xxl*2,
     // marginBottom: Spacing.sm,
     flexDirection: 'row',
     alignItems: 'center',

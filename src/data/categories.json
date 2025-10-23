@@ -1,0 +1,12 @@
+[
+    {"id": "1", "name": "Musique"},
+    {"id": "2", "name": "Art"},
+    {"id": "3", "name": "Technologie"},
+    {"id": "4", "name": "Business"},
+    {"id": "5", "name": "Environnement"},
+    {"id": "6", "name": "Développement"},
+    {"id": "7", "name": "Santé"},
+    {"id": "8", "name": "Éducation"},
+    {"id": "9", "name": "Sport"},
+    {"id": "10", "name": "Culture"}
+]
