@@ -4,7 +4,7 @@ Voici un **README.md complet et professionnel** pour ton application mobile **Gu
 ---
 
 ```markdown
-# 🎟️ GuestPass (EPM) — Application Mobile Événementielle
+# GuestPass (EPM) — Application Mobile Événementielle
 
 GuestPass (EPM) est une application mobile multiplateforme (iOS & Android) développée en **React Native + TypeScript**, permettant aux utilisateurs de **découvrir, gérer et participer à des événements**.  
 Elle est connectée à une **API Node.js + Express + MongoDB (Elyntis Platform Management)**.
@@ -13,31 +13,31 @@ Elle est connectée à une **API Node.js + Express + MongoDB (Elyntis Platform M
 
 ## 📱 Fonctionnalités principales
 
-### 👤 Utilisateurs
+### Utilisateurs
 - Création de compte / connexion (email, Google, Apple ID)
 - Mise à jour du profil utilisateur (photo, bio, préférences)
 - Historique de participation aux événements
 - Gestion des billets achetés (QR code inclus)
 
-### 🎉 Événements
+### Événements
 - Liste des événements disponibles (filtrage par catégorie, date, localisation)
 - Détails complets (description, organisateur, lieu, images)
 - Ajout aux favoris
 - Achat ou réservation de billet
 
-### 🎟️ Billets & Accès
+### Billets & Accès
 - Génération automatique de QR code pour chaque billet
 - Validation d’accès via scan à l’entrée (staff side)
 - Historique de participation
 
-### 🏢 Organisations
+### Organisations
 - Page publique de l’organisation
 - Liste des événements organisés
 - Possibilité de suivre une organisation
 
 ---
 
-## 🧠 Architecture technique
+## Architecture technique
 
 ### Stack principale
 | Catégorie | Technologie |
@@ -53,9 +53,9 @@ Elle est connectée à une **API Node.js + Express + MongoDB (Elyntis Platform M
 
 ---
 
-## 🧩 Structure du projet
+## Structure du projet
 
-```
+
 
 guestpass-app/
 │
@@ -79,15 +79,15 @@ guestpass-app/
 
 ---
 
-## ⚙️ Installation et exécution
+## Installation et exécution
 
-### 1️⃣ Cloner le projet
+### Cloner le projet
 ```bash
-git clone https://github.com/username/guestpass-app.git
-cd guestpass-app
+git clone https://github.com/Elintys/EPM.git
+cd EPM
 ````
 
-### 2️⃣ Installer les dépendances
+### Installer les dépendances
 
 ```bash
 npm install
@@ -95,7 +95,7 @@ npm install
 yarn install
 ```
 
-### 3️⃣ Configurer les variables d’environnement
+### Configurer les variables d’environnement
 
 Crée un fichier `.env` à la racine du projet :
 
@@ -105,105 +105,7 @@ GOOGLE_CLIENT_ID=xxxx.apps.googleusercontent.com
 APPLE_CLIENT_ID=com.guestpass.ios
 ```
 
-### 4️⃣ Lancer l’application
-
-#### ▶️ Mode développement
-
-```bash
-npx expo start
-# ou
-npx react-native run-android
-# ou
-npx react-native run-ios
-```
-
----
-
-## 🔐 Authentification
-
-L’application communique avec l’API Elyntis via un système JWT :
-
-* `POST /auth/register`
-* `POST /auth/login`
-* `GET /auth/me` pour récupérer le profil utilisateur
-* Les tokens sont stockés localement via **SecureStore (Expo)** ou **AsyncStorage (bare RN)**.
-
----
-
-## 🧾 Exemple d’intégration API
-
-```ts
-import axios from 'axios';
-import { API_BASE_URL } from '@env';
-
-export const api = axios.create({
-  baseURL: API_BASE_URL,
-});
-
-export const getEvents = async () => {
-  const res = await api.get('/events');
-  return res.data;
-};
-```
-
----
-
-## 🎨 Design & UX
-
-* Palette : tons **violets et dorés** (identité Elyntis)
-* Typographie : **Poppins / Inter**
-* Expérience fluide et minimaliste
-* Interface bilingue : 🇫🇷 Français / 🇬🇧 Anglais
-
----
-
-## 🚀 Build & Déploiement
-
-### Android
-
-```bash
-npx expo build:android
-```
-
-### iOS
-
-```bash
-npx expo build:ios
-```
-
-Les builds peuvent ensuite être téléchargés et publiés sur **Google Play** et **App Store**.
-
----
-
-## 🧑‍💻 Équipe
-
-* **Product Owner / Designer** : KLAN
-* **Développeur Mobile** : Digital Studios Team
-* **API Backend** : Elyntis API (Node.js + MongoDB)
-
----
-
-## 📄 Licence
-
-Ce projet est distribué sous la licence **MIT**.
-© 2025 Digital Studios & Elyntis. Tous droits réservés.
-
----
-
-## 🌐 Liens utiles
-
-* [🌍 Site Web Elyntis](https://www.elintys.com)
-* [💻 API Node.js Repository](https://github.com/username/elyntis-api)
-* [📱 Application Mobile GuestPass (EPM)](https://github.com/username/guestpass-app)
-
-```
-
----
-
-Souhaites-tu que je t’ajoute la section **"Screenshots & Aperçu de l’app"** (avec placeholders pour images et maquettes Figma) à la fin du README pour un rendu plus professionnel ?
-```
-
-# Getting Started
+###  Lancer l’application
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
@@ -260,5 +162,90 @@ npm run ios
 # OR using Yarn
 yarn ios
 ```
+
+
+---
+
+## Authentification
+
+L’application communique avec l’API Elyntis via un système JWT :
+
+* `POST /auth/register`
+* `POST /auth/login`
+* `GET /auth/me` pour récupérer le profil utilisateur
+* Les tokens sont stockés localement via **SecureStore (Expo)** ou **AsyncStorage (bare RN)**.
+
+---
+
+## 🧾 Exemple d’intégration API
+
+```ts
+import axios from 'axios';
+import { API_BASE_URL } from '@env';
+
+export const api = axios.create({
+  baseURL: API_BASE_URL,
+});
+
+export const getEvents = async () => {
+  const res = await api.get('/events');
+  return res.data;
+};
+```
+
+---
+
+## 🎨 Design & UX
+
+* Palette : tons **violets et dorés** (identité Elyntis)
+* Typographie : **Poppins / Inter**
+* Expérience fluide et minimaliste
+* Interface bilingue : 🇫🇷 Français / 🇬🇧 Anglais
+
+---
+
+## 🚀 Build & Déploiement
+
+### Android
+
+```bash
+npm build:android
+```
+
+### iOS
+
+```bash
+npm build:ios
+```
+
+Les builds peuvent ensuite être téléchargés et publiés sur **Google Play** et **App Store**.
+
+---
+
+## 🧑‍💻 Équipe
+
+* **Product Owner / Designer** : KLAN
+* **Développeur Mobile** : Digital Studios Team
+* **API Backend** : Elyntis API (Node.js + MongoDB)
+
+---
+
+## 📄 Licence
+
+Ce projet est distribué sous la licence **MIT**.
+© 2025 Digital Studios & Elyntis. Tous droits réservés.
+
+---
+
+## 🌐 Liens utiles
+
+* [🌍 Site Web Elyntis](https://www.elintys.com)
+* [💻 API Node.js Repository](https://github.com/username/elyntis-api)
+* [📱 Application Mobile GuestPass (EPM)](https://github.com/username/guestpass-app)
+
+```
+
+---
+
 
 # EPM
