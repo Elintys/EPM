@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import theme, { Colors } from '../constants/styles/theme';
 import { AppDispatch, RootState } from '../store/store';
-import { loginUser } from '../store/slices/userSlice';
+import { loginUser } from '../store/slices/user/userLogic';
 
 const Login = () => {
   const navigation = useNavigation();

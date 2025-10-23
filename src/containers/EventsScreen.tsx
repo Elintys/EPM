@@ -1,17 +1,32 @@
 // import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import theme, { Colors } from '../constants/styles/theme';
-import Header from '../components/Header';
-import SearchComponent from '../components/SearchComponent';
-import categories from '../data/categories.json';
-import events from '../data/events.json';
+import { useDispatch, useSelector } from 'react-redux';
 import CategoryItem from '../components/CategoryItem';
 import EventItem from '../components/EventItem';
+import Header from '../components/Header';
+import SearchComponent from '../components/SearchComponent';
+import theme, { Colors } from '../constants/styles/theme';
+import categories from '../data/categories.json';
+import {fetchEventsByUser} from '../store/slices/event/eventLogic';
+import { AppDispatch, RootState } from '../store/store';
 
 const EventsScreen = () => {
   // const navigation = useNavigation();
+  const dispatch = useDispatch<AppDispatch>();
+  const { user } = useSelector((state: RootState) => state.user);
+  const { events, loading, error } = useSelector((state: RootState) => state.events);
+
+  useEffect(() => {
+    if (user?._id) {
+      dispatch(fetchEventsByUser(user?._id));
+    }
+  }, [user, dispatch]);
+
+  if (loading) return <ActivityIndicator size="large" color="#000" />;
+  if (error) return <Text style={{ color: 'red' }}>{error}</Text>;
+
 
   return (
     <LinearGradient
@@ -24,7 +39,7 @@ const EventsScreen = () => {
         <Header />
         <View style={theme.spacerLg} />
         <View style={{ paddingHorizontal: 16, gap: 8, marginTop: 16 }}>
-          <Text style={styles.text}>Hello Samanta</Text>
+          <Text style={styles.text}>Hello {user?.firstName}</Text>
           <Text>There are 23 upcoming events</Text>
         </View>
         <View style={theme.spacerLg} />
