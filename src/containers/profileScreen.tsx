@@ -1,12 +1,30 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from "react";
+import { Button, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+// import { logoutUser } from "../features/auth/authActions";
+import { AppDispatch, RootState } from "../store/store";
+import { logoutUser } from "../store/slices/userSlice";
 
-const ProfileScreen = () => {
+export default function ProfileScreen() {
+  const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    console.log('====================================');
+    console.log("User: ",user);
+    console.log('====================================');
+  }, [user]);
+
   return (
-    <View>
-      <Text>ProfileScreen</Text>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      {user ? (
+        <>
+          <Text style={{ fontSize: 18 }}>Bienvenue {user.name}</Text>
+          <Text>{user.email}</Text>
+          <Button title="Se déconnecter" onPress={() => dispatch(logoutUser())} />
+        </>
+      ) : (
+        <Text>Aucun utilisateur connecté.</Text>
+      )}
     </View>
-  )
+  );
 }
-
-export default ProfileScreen

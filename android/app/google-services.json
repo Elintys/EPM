@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "264689799399",
+    "project_id": "elintys-60cf8",
+    "storage_bucket": "elintys-60cf8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264689799399:android:39e35e7b7042f80a731242",
+        "android_client_info": {
+          "package_name": "com.elintys.epm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5ks38hRZkdlZEtqBbrGe27onx-YePYm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

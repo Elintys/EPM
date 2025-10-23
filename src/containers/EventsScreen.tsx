@@ -55,6 +55,7 @@ const EventsScreen = () => {
               <EventItem event={item} />
             </View>
           )}
+          horizontal
         />
         <View style={{ height: 16 }}></View>
     </LinearGradient>
