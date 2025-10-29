@@ -7,6 +7,7 @@ import theme, { Colors } from '../constants/styles/theme';
 import { AppDispatch, RootState } from '../store/store';
 import { fetchGuestsByEvent } from '../store/slices/guest/guestLogic';
 import { fetchEventsByUser } from '../store/slices/event/eventLogic';
+import { clearGuests } from '../store/slices/guest/guestSlice';
 
 const GuestList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,22 +19,25 @@ const GuestList: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
   const [suggestionsList, setSuggestionsList] = useState<{ id: string; title: string }[]>([]);
 
-  // 🔹 Charger les événements au montage
+  // Charger les événements au montage
   useEffect(() => {
     dispatch(fetchEventsByUser());
   }, [dispatch]);
 
-  // 🔹 Mettre à jour la liste des suggestions quand les événements changent
+  // Mettre à jour la liste des suggestions quand les événements changent
   useEffect(() => {
     if (events?.length > 0) {
       setSuggestionsList(events.map((ev) => ({ id: ev._id, title: ev.title })));
     }
   }, [events]);
 
-  // 🔹 Charger les invités quand un événement est sélectionné
   useEffect(() => {
+    // Charger les invités quand un événement est sélectionné
     if (selectedEvent) {
       dispatch(fetchGuestsByEvent(selectedEvent));
+    }else {
+      // Si aucun événement n'est sélectionné, vider la liste des invités
+      dispatch(clearGuests());
     }
   }, [selectedEvent, dispatch]);
 
