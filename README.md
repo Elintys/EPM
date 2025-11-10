@@ -42,14 +42,13 @@ Elle est connectée à une **API Node.js + Express + MongoDB (Elyntis Platform M
 ### Stack principale
 | Catégorie | Technologie |
 |------------|--------------|
-| Framework Mobile | **React Native (Expo ou CLI)** |
+| Framework Mobile | **React Native (CLI)** |
 | Langage | **TypeScript** |
-| Gestion d’état | **Redux Toolkit / Zustand** |
+| Gestion d’état | **Redux Toolkit** |
 | Navigation | **React Navigation v7** |
-| Requêtes API | **Axios / React Query** |
-| Authentification | **JWT / OAuth2 (via API Elyntis)** |
-| Base de données locale | **AsyncStorage / MMKV** |
-| UI Components | **React Native Paper / NativeWind (Tailwind)** |
+| Requêtes API | **Axios** |
+| Authentification | **JWT / OAuth2 (via API Elyntis) / firebase auth** |
+| Base de données locale | **AsyncStorage** |
 
 ---
 
@@ -57,7 +56,7 @@ Elle est connectée à une **API Node.js + Express + MongoDB (Elyntis Platform M
 
 
 
-guestpass-app/
+EPM-app/
 │
 ├── src/
 │   ├── api/              # Gestion des appels à l’API Elyntis
@@ -76,6 +75,15 @@ guestpass-app/
 └── README.md
 
 ````
+
+---
+
+## 🎬 Démonstration
+
+Cliquez ci-dessous pour visionner la démo de l’application :
+
+[Voir la démo EPM](./assets/demo.mp4)
+
 
 ---
 
@@ -168,16 +176,16 @@ yarn ios
 
 ## Authentification
 
-L’application communique avec l’API Elyntis via un système JWT :
+L’application communique avec l’API Elintys via un système JWT :
 
 * `POST /auth/register`
 * `POST /auth/login`
 * `GET /auth/me` pour récupérer le profil utilisateur
-* Les tokens sont stockés localement via **SecureStore (Expo)** ou **AsyncStorage (bare RN)**.
+* Les tokens sont stockés localement via **AsyncStorage (bare RN)**.
 
 ---
 
-## 🧾 Exemple d’intégration API
+## Exemple d’intégration API
 
 ```ts
 import axios from 'axios';
@@ -195,16 +203,16 @@ export const getEvents = async () => {
 
 ---
 
-## 🎨 Design & UX
+## Design & UX
 
-* Palette : tons **violets et dorés** (identité Elyntis)
+* Palette : tons **violets et dorés** (identité Elintys)
 * Typographie : **Poppins / Inter**
 * Expérience fluide et minimaliste
-* Interface bilingue : 🇫🇷 Français / 🇬🇧 Anglais
+* Interface bilingue : Français / Anglais
 
 ---
 
-## 🚀 Build & Déploiement
+## Build & Déploiement
 
 ### Android
 
@@ -224,8 +232,8 @@ Les builds peuvent ensuite être téléchargés et publiés sur **Google Play** 
 
 ## 🧑‍💻 Équipe
 
-* **Product Owner / Designer** : KLAN
-* **Développeur Mobile** : Digital Studios Team
+* **Product Owner / Designer** : Aurel Noe Kenfack
+* **Développeur Mobile** : Aurel Noe Kenfack
 * **API Backend** : Elyntis API (Node.js + MongoDB)
 
 ---
@@ -233,15 +241,15 @@ Les builds peuvent ensuite être téléchargés et publiés sur **Google Play** 
 ## 📄 Licence
 
 Ce projet est distribué sous la licence **MIT**.
-© 2025 Digital Studios & Elyntis. Tous droits réservés.
+© 2025 Elintys. Tous droits réservés.
 
 ---
 
 ## 🌐 Liens utiles
 
 * [🌍 Site Web Elyntis](https://www.elintys.com)
-* [💻 API Node.js Repository](https://github.com/username/elyntis-api)
-* [📱 Application Mobile GuestPass (EPM)](https://github.com/username/guestpass-app)
+* [💻 API Node.js Repository](https://github.com/Elintys/elintys-api.git)
+* [📱 Application Mobile GuestPass (EPM)](https://github.com/Elintys/EPM.git)
 
 ```
 
