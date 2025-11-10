@@ -14,7 +14,7 @@ import { AppDispatch, RootState } from '../store/store';
 import { Colors } from '../constants/styles/theme';
 import { fetchEventsByUser } from '../store/slices/event/eventLogic';
 import { logoutUser } from "../store/slices/user/userLogic";
-import Icon from 'react-native-vector-icons/Feather';
+// import Icon from 'react-native-vector-icons/Feather';
 
 const ProfileScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -84,22 +84,22 @@ const ProfileScreen = () => {
 
           <View style={styles.actionGrid}>
             <TouchableOpacity style={styles.actionButton}>
-              <Icon name="calendar" size={24} color={Colors.primaryDark} />
+              {/* <Icon name="calendar" size={24} color={Colors.primaryDark} /> */}
               <Text style={styles.actionText}>Mes Événements</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.actionButton}>
-              <Icon name="users" size={24} color={Colors.primaryDark} />
+              {/* <Icon name="users" size={24} color={Colors.primaryDark} /> */}
               <Text style={styles.actionText}>Invités</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.actionButton}>
-              <Icon name="camera" size={24} color={Colors.primaryDark} />
+              {/* <Icon name="camera" size={24} color={Colors.primaryDark} /> */}
               <Text style={styles.actionText}>Scanner</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.actionButton}>
-              <Icon name="settings" size={24} color={Colors.primaryDark} />
+              {/* <Icon name="settings" size={24} color={Colors.primaryDark} /> */}
               <Text style={styles.actionText}>Paramètres</Text>
             </TouchableOpacity>
           </View>
@@ -107,7 +107,7 @@ const ProfileScreen = () => {
 
         {/* --- LOGOUT BUTTON --- */}
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Icon name="log-out" size={18} color="#fff" style={{ marginRight: 8 }} />
+          {/* <Icon name="log-out" size={18} color="#fff" style={{ marginRight: 8 }} /> */}
           <Text style={styles.logoutText}>Se déconnecter</Text>
         </TouchableOpacity>
       </ScrollView>

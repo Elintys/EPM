@@ -22,7 +22,7 @@ target 'EPM' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  # Firebase doit être en dynamique aussi
+  # Firebase doit être en dynamique
   $RNFirebaseAsStaticFramework = false
 
   post_install do |installer|
