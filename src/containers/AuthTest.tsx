@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, logoutUser, registerUser } from '../store/slices/userSlice';
+import { loginUser, logoutUser, registerUser } from '../store/slices/user/userSlice';
 import { AppDispatch, RootState } from '../store/store';
 
 const LoginScreen = () => {

@@ -1,17 +1,19 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import theme, { Colors } from '../constants/styles/theme';
 
-interface Event {
-    _id: string;
-    title: string;
-    [key: string]: any;
+// interface Event {
+//     _id: string;
+//     title: string;
+//     [key: string]: any;
 
-}
+// }
 
-const EventItem = ({event}:{event:Event}) => {
+const EventItem = ({event}) => {
+  const navigation = useNavigation();
   return (
-    <View style={[theme.listItem, styles.container]} >
+    <TouchableOpacity style={[theme.listItem, styles.container]} onPress={() => {navigation.navigate('EventDetails', { id: event._id });}}>
       <Image
         // source={{ uri: event?.image? event.image : 'https://via.placeholder.com/150' }}
         source={require('../assets/images/event.png')}
@@ -19,7 +21,7 @@ const EventItem = ({event}:{event:Event}) => {
         resizeMode="cover"
       />
       <Text>{event.title}</Text>
-    </View>
+    </TouchableOpacity>
   )
 }
 

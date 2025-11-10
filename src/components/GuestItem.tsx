@@ -3,9 +3,9 @@ import React from 'react';
 import theme, { Colors } from '../constants/styles/theme';
 
 interface Guest {
-  id: string;
+  _id: string;
   eventId: string;
-  name: string;
+  fullName: string;
   email: string;
   role: string;
   status: string;
@@ -16,7 +16,7 @@ interface Guest {
 const GuestItem = ({ guest }: { guest: Guest }) => {
   return (
     <View style={[theme.listItem, styles.container]}>
-      <Text>{guest.name}</Text>
+      <Text>{guest?.fullName}</Text>
       <View
         style={[
           styles.btnChecking,

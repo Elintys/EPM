@@ -1,70 +1,71 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Dimensions, FlatList, Platform, Text, View } from 'react-native';
-import { AutocompleteDropdown, IAutocompleteDropdownRef } from 'react-native-autocomplete-dropdown';
+import {
+  Dimensions,
+  FlatList,
+  Platform,
+  Text,
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import {
+  AutocompleteDropdown,
+  IAutocompleteDropdownRef,
+} from 'react-native-autocomplete-dropdown';
+import { useDispatch, useSelector } from 'react-redux';
 import GuestItem from '../components/GuestItem';
 import theme, { Colors } from '../constants/styles/theme';
-import events from '../data/events.json';
-import allGuests from '../data/guests.json';
-import { IGuest } from '../interfaces/Guest';
-import { IEventItem, ISuggestionItem } from '../interfaces/IEventItem';
+import { AppDispatch, RootState } from '../store/store';
+import { fetchGuestsByEvent } from '../store/slices/guest/guestLogic';
+import { fetchEventsByUser } from '../store/slices/event/eventLogic';
+import { clearGuests } from '../store/slices/guest/guestSlice';
+import { useNavigation } from '@react-navigation/native';
 
-
-
-
-
-
-
-// --- Helper function ---
-const getEventGuests = (eventId: string): IGuest[] => {
-  if (!eventId) return [];
-  return (allGuests as any[])
-    .filter(guest => guest.eventId === eventId)
-    .map(guest => ({
-      ...guest,
-      _id: guest._id ?? guest.id ?? '',
-      id: guest.id ?? guest._id ?? '',
-      checkedIn: guest.checkedIn ?? false,
-      avatar: guest.avatar ?? '',
-    })) as IGuest[];
-};
-
-// --- Component ---
 const GuestList: React.FC = () => {
-  const [loading, setLoading] = useState(false);
-  const [suggestionsList, setSuggestionsList] = useState<ISuggestionItem[] | null>(null);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  const [guests, setGuests] = useState<IGuest[]>(getEventGuests(selectedItem || ''));
+  const dispatch = useDispatch<AppDispatch>();
   const dropdownController = useRef<IAutocompleteDropdownRef>(null);
+  
+  const navigation = useNavigation();
 
-  // --- Suggestions ---
-  const getSuggestions = useCallback(async (q: string) => {
-    const filterToken = q.toLowerCase();
-    if (typeof q !== 'string' || q.length < 1) {
-      setSuggestionsList(null);
-      return;
-    }
+  const { events, loading: loadingEvents } = useSelector(
+    (state: RootState) => state.events,
+  );
+  const {
+    guests,
+    loading: loadingGuests,
+    error,
+  } = useSelector((state: RootState) => state.guests);
 
-    setLoading(true);
+  const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
+  const [suggestionsList, setSuggestionsList] = useState<
+    { id: string; title: string }[]
+  >([]);
 
-    const suggestions: ISuggestionItem[] = (events as IEventItem[])
-      .filter(item => item.title.toLowerCase().includes(filterToken))
-      .map(item => ({
-        id: item._id,
-        title: item.title,
-      }));
-
-    setSuggestionsList(suggestions);
-    setLoading(false);
-  }, []);
-
-  // --- Update guests when selection changes ---
+  // Charger les événements au montage
   useEffect(() => {
-    setGuests(getEventGuests(selectedItem || ''));
-  }, [selectedItem]);
+    dispatch(fetchEventsByUser());
+  }, [dispatch]);
+
+  // Mettre à jour la liste des suggestions quand les événements changent
+  useEffect(() => {
+    if (events?.length > 0) {
+      setSuggestionsList(events.map(ev => ({ id: ev._id, title: ev.title })));
+    }
+  }, [events]);
+
+  useEffect(() => {
+    // Charger les invités quand un événement est sélectionné
+    if (selectedEvent) {
+      dispatch(fetchGuestsByEvent(selectedEvent));
+    } else {
+      // Si aucun événement n'est sélectionné, vider la liste des invités
+      dispatch(clearGuests());
+    }
+  }, [selectedEvent, dispatch]);
 
   const onClearPress = useCallback(() => {
-    setSuggestionsList(null);
-    setSelectedItem(null);
+    setSelectedEvent(null);
   }, []);
 
   const onOpenSuggestionsList = useCallback((_isOpened: boolean) => {}, []);
@@ -73,84 +74,109 @@ const GuestList: React.FC = () => {
     <View style={theme.container}>
       <View>
         <AutocompleteDropdown
-            controller={controller => {
-              dropdownController.current = controller;
-            }}
-            direction={Platform.select({ ios: 'down' })}
-            dataSet={suggestionsList}
-            onChangeText={getSuggestions}
-            onSelectItem={item => {
-              item && setSelectedItem(item.id);
-            }}
-            debounce={600}
-            suggestionsListMaxHeight={Dimensions.get('window').height * 0.4}
-            onClear={onClearPress}
-            onOpenSuggestionsList={onOpenSuggestionsList}
-            loading={loading}
-            useFilter={false}
-            textInputProps={{
-              placeholder: 'Sélectionner un événement',
-              autoCorrect: false,
-              autoCapitalize: 'none',
-              style: {
-                borderRadius: 25,
-                color: Colors.neutral700,
-                fontWeight: '500',
-                paddingLeft: 18,
-              },
-            }}
-            rightButtonsContainerStyle={{
-              right: 8,
-              height: 30,
-              alignSelf: 'center',
-            }}
-            inputContainerStyle={{
+          controller={controller => {
+            dropdownController.current = controller;
+          }}
+          direction={Platform.select({ ios: 'down' })}
+          dataSet={suggestionsList}
+          onSelectItem={item => {
+            if (item) setSelectedEvent(item.id);
+          }}
+          debounce={400}
+          suggestionsListMaxHeight={Dimensions.get('window').height * 0.4}
+          onClear={onClearPress}
+          onOpenSuggestionsList={onOpenSuggestionsList}
+          loading={loadingEvents}
+          useFilter={true}
+          textInputProps={{
+            placeholder: 'Sélectionner un événement',
+            autoCorrect: false,
+            autoCapitalize: 'none',
+            style: {
               borderRadius: 25,
-            }}
-            suggestionsListContainerStyle={{
-              backgroundColor: Colors.neutral400,
-              borderRadius: 5,
-            }}
-            containerStyle={{ flexGrow: 1, flexShrink: 1 }}
-            renderItem={(item, _text) => (
-              <Text style={{ color: Colors.neutral700, padding: 15 }}>{item.title}</Text>
-            )}
-            inputHeight={50}
-            showChevron={false}
-            closeOnBlur={false}
-          />
-      </View>
-
-      <View style={{ flex: 1, marginTop: 25 }}>
-        <FlatList
-          data={guests}
-          keyExtractor={item => item.id || item._id}
-          renderItem={({ item }) => (
-            <View>
-              <GuestItem guest={item} />
-              <Text style={{ color: '#fff', padding: 15 }}>{item.name}</Text>
-            </View>
+              color: Colors.neutral700,
+              fontWeight: '500',
+              paddingLeft: 18,
+            },
+          }}
+          inputContainerStyle={{ borderRadius: 25 }}
+          suggestionsListContainerStyle={{
+            backgroundColor: Colors.neutral400,
+            borderRadius: 5,
+          }}
+          containerStyle={{ flexGrow: 1, flexShrink: 1 }}
+          renderItem={item => (
+            <Text style={{ color: Colors.neutral700, padding: 15 }}>
+              {item.title}
+            </Text>
           )}
-          ListEmptyComponent={() => (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ color: '#db1a1aff', padding: 15 }}>
-                Aucun invité pour cet événement
-              </Text>
-            </View>
-          )}
+          inputHeight={50}
+          showChevron={false}
+          closeOnBlur={false}
         />
+      </View>
+      <View style={theme.spacerLg} />
+      {/* <View style ={}> */}
+        <TouchableOpacity style={[style.scanBtnContainer,{backgroundColor:Colors.primary}]} onPress={() => {navigation.navigate('QRScanner' as never)}}>
+          <Text
+            style={{
+              color: Colors.neutral300,
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+          >
+            Launch QR code scanner
+          </Text>
+        </TouchableOpacity>
+      {/* </View> */}
+
+      <View style={theme.spacerLg} />
+
+      <View style={[ { flex: 1 }]}>
+        {loadingGuests ? (
+          <ActivityIndicator size="large" color={Colors.primaryDark} />
+        ) : error ? (
+          <Text style={{ color: 'red' }}>{error}</Text>
+        ) : (
+          <FlatList
+            data={guests}
+            keyExtractor={item => item._id}
+            renderItem={({ item }) => (
+              <View>
+                <GuestItem guest={item} />
+              </View>
+            )}
+            ListEmptyComponent={() => (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Text style={{ color: Colors.neutral700, padding: 15 }}>
+                  Aucun invité pour cet événement
+                </Text>
+              </View>
+            )}
+          />
+        )}
       </View>
     </View>
   );
 };
 
-// const styles = StyleSheet.create({
-//   rowContainer: {
-//     flex: 1,
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     marginBottom: 25,
-//   },
-// });
-
 export default GuestList;
+
+const style = StyleSheet.create({
+  scanBtnContainer:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.primaryDark,
+    borderRadius: 25,
+    height: 50,
+    width: '60%',
+    alignSelf: 'center',
+  }
+})

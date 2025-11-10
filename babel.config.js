@@ -1,6 +1,5 @@
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
-  // presets: ['module:metro-react-native-babel-preset'],
   plugins: [
     [
       'module:react-native-dotenv',
@@ -13,5 +12,7 @@ module.exports = {
         allowUndefined: true,
       },
     ],
+    'react-native-worklets/plugin',
+    // ['react-native-reanimated/plugin', { globals: ['__scanCodes'] }],
   ],
 };
