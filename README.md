@@ -1,12 +1,12 @@
 
-Voici un **README.md complet et professionnel** pour ton application mobile **GuestPass (EPM)** développée en **React Native avec TypeScript**, connectée à ton **API Node.js / MongoDB** :
+Voici un **README.md complet et professionnel** pour ton application mobile **GuestPass (EPM)** développée en **React Native (JavaScript)**, connectée à ton **API Node.js / MongoDB** :
 
 ---
 
 ```markdown
 # GuestPass (EPM) — Application Mobile Événementielle
 
-GuestPass (EPM) est une application mobile multiplateforme (iOS & Android) développée en **React Native + TypeScript**, permettant aux utilisateurs de **découvrir, gérer et participer à des événements**.  
+GuestPass (EPM) est une application mobile multiplateforme (iOS & Android) développée en **React Native (JavaScript)**, permettant aux utilisateurs de **découvrir, gérer et participer à des événements**.  
 Elle est connectée à une **API Node.js + Express + MongoDB (Elyntis Platform Management)**.
 
 ---
@@ -43,7 +43,7 @@ Elle est connectée à une **API Node.js + Express + MongoDB (Elyntis Platform M
 | Catégorie | Technologie |
 |------------|--------------|
 | Framework Mobile | **React Native (CLI)** |
-| Langage | **TypeScript** |
+| Langage | **JavaScript** |
 | Gestion d’état | **Redux Toolkit** |
 | Navigation | **React Navigation v7** |
 | Requêtes API | **Axios** |
@@ -66,12 +66,11 @@ EPM-app/
 │   ├── navigation/       # Stack, Tab & Auth Navigators
 │   ├── screens/          # Pages principales (Home, Event, Profile, etc.)
 │   ├── store/            # Redux/Zustand store
-│   ├── types/            # Types et interfaces TypeScript
+│   ├── types/            # Types et interfaces (JSDoc)
 │   └── utils/            # Fonctions utilitaires
 │
-├── App.tsx               # Point d’entrée principal
+├── App.jsx               # Point d’entrée principal
 ├── package.json
-├── tsconfig.json
 └── README.md
 
 ````
@@ -187,7 +186,7 @@ L’application communique avec l’API Elintys via un système JWT :
 
 ## Exemple d’intégration API
 
-```ts
+```js
 import axios from 'axios';
 import { API_BASE_URL } from '@env';
 
